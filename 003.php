@@ -18,32 +18,43 @@ function find_all_purchases_in_february($data)
 //     }
 // }
 
-// function find_ari($arr)
-// {
-//     if ($arr->customer->name == 'Ari') {
-//         return true;
-//     }
-// }
+function find_ari($arr)
+{
+    if ($arr->customer->name == 'Ari') {
+        return true;
+    }
+}
+$dataAri = array_filter($data, 'find_ari');
 
-// $dataAri = array_filter($data, 'find_ari');
-// function GetDataByName($data, $name)
-// {
-// 	$sum = 0;
-// 	for ($i=0; $i < count($data) ; $i++) { 
-// 		if (strtolower($data[$i]->customer->name) == strtolower($name))
-// 		{
-// 			$items = $data[$i]->items;
-// 			foreach ($items as $item) 
-// 			{
-// 				$sum += $item->price * $item->qty;
-// 			}
-// 		}
-// 	}
-// 	return $sum;
-// }
+function grandTotal($data)
+{
+	$sum = 0;
+	$items = $data->items;
+	foreach ($items as $item)
+	{
+		$sum += $item->price * $item->qty;
+	}
+	return $sum;
+}
+
+function grand_total_lower_than_300000($data)
+{
+	$sum = 0;
+	$items = $data->items;
+	foreach ($items as $item)
+	{
+		$sum += $item->price * $item->qty;
+	}
+	if ($sum < 300000)
+		{
+			return $result[] = $data->customer->name;
+        }
+}
 
 
+// var_dump($data, 'find_all_purchases_in_february');
 
+// $result = array_map('grandTotal', $dataAri);
+// echo $result[4];
 
-var_dump($data, 'find_all_purchases_in_february');
-// var_dump(GetDataByName($data, "Ari"));
+var_dump(array_map('grand_total_lower_than_300000', $data));
